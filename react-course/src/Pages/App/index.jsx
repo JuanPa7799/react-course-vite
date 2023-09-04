@@ -1,7 +1,5 @@
 import { useRoutes, BrowserRouter} from 'react-router-dom';
 import './App.css';
-import { useRoutes, BrowserRouter} from 'react-router-dom';
-import './App.css';
 import Home from '../Home';
 import MyAcount from '../MyAcount';
 import MyOrder from '../MyOrder';
