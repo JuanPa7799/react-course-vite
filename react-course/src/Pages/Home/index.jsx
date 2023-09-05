@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import Layout from '../../Components/Layout'
 import Card from '../../Components/Card'
+import ProductDetail from '../../Components/ProductDetail'
 
 function Home() {
   const [items,setItems] = useState(null);
@@ -10,7 +11,7 @@ function Home() {
     fetch('https://api.escuelajs.co/api/v1/products')
     .then(response => response.json())
     .then(data => setItems(data))
-
+    
   },[])
 
   return (
@@ -26,6 +27,7 @@ function Home() {
           ))
         }
       </div>
+      <ProductDetail/>
     </Layout>
   )
 }
