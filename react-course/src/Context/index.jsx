@@ -22,6 +22,9 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
 
   // *Shopping cart - Add products to cart.
   const[cartProducts, setCartProducts] = useState([])
+  
+  // *Shopping cart - Order.
+  const[order, setOrder] = useState([])
 
   return (
     <ShoppingCartContext.Provider value={{
@@ -36,7 +39,9 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
       setCartProducts,
       isCheckoutSideMenuOpen,
       openCheckoutSideMenu,
-      closeCheckoutSideMenu
+      closeCheckoutSideMenu,
+      order, 
+      setOrder
     }}>
       {children}
     </ShoppingCartContext.Provider>
