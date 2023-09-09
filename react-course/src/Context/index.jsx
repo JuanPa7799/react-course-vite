@@ -28,11 +28,13 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
 
   // *Get products
   const [items,setItems] = useState(null);
+  
+  // *Get products by filter
+  const [filteredItems,setFilteredItems] = useState(null);
 
   // *Get products by title
   const [searchByTitle, setsearchByTitle] = useState(null);
   console.log('searchByTitle: ',searchByTitle );
-
 
   useEffect(() => {
     // fetch pide los elementos d ela API
@@ -41,6 +43,18 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
     .then(data => setItems(data))
     
   },[])
+  
+  const filteredItemsByTitle = (items, searchByTitle) => {
+    return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+  }
+
+  useEffect(() => {
+    if (searchByTitle) setFilteredItems(filteredItemsByTitle(items,searchByTitle))
+    
+  },[items, searchByTitle])
+
+
+
 
   return (
     <ShoppingCartContext.Provider value={{
@@ -62,6 +76,8 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
       setItems,
       searchByTitle,
       setsearchByTitle,
+      filteredItems,
+      setFilteredItems, 
     }}>
       {children}
     </ShoppingCartContext.Provider>
