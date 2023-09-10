@@ -34,7 +34,9 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
 
   // *Get products by title
   const [searchByTitle, setsearchByTitle] = useState(null);
-  console.log('searchByTitle: ',searchByTitle );
+  
+  // *Get products by category
+  const [searchByCategory, setSearchByCategory] = useState(null);
 
   useEffect(() => {
     // fetch pide los elementos d ela API
@@ -48,12 +50,34 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
     return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
   }
 
+  const filteredItemsByCategory = (items, searchByCategory) => {
+    return items?.filter(item => item.category.name.toLowerCase().includes(searchByCategory.toLowerCase()))
+  }
+
+  const filterBy = (searchType, items, searchByTitle, searchByCategory ) => {
+    if(searchType === 'BY_TITLE'){
+      return filteredItemsByTitle(items,searchByTitle)
+    }
+
+    if(searchType === 'BY_CATEGORY'){
+      return filteredItemsByCategory(items,searchByCategory)
+    }
+
+    if(searchType === 'BY_TITLE_AND_CATEGORY'){
+      return filteredItemsByCategory(items,searchByCategory).filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+    }
+    if(!searchType){
+      return items
+    }
+  }
+
   useEffect(() => {
-    if (searchByTitle) setFilteredItems(filteredItemsByTitle(items,searchByTitle))
+    if (searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY',items,searchByTitle, searchByCategory))
+    if (searchByTitle && !searchByCategory) setFilteredItems(filterBy('BY_TITLE',items,searchByTitle, searchByCategory))
+    if (searchByCategory && !searchByTitle) setFilteredItems(filterBy('BY_CATEGORY',items,searchByTitle, searchByCategory))
+    if (!searchByCategory && !searchByTitle) setFilteredItems(filterBy(null,items,searchByTitle, searchByCategory))
     
-  },[items, searchByTitle])
-
-
+  },[items, searchByTitle, searchByCategory])
 
 
   return (
@@ -78,6 +102,8 @@ const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
       setsearchByTitle,
       filteredItems,
       setFilteredItems, 
+      searchByCategory, 
+      setSearchByCategory,
     }}>
       {children}
     </ShoppingCartContext.Provider>

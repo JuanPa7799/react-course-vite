@@ -12,7 +12,7 @@ function Home() {
 
   const renderView = () => {
     if (context.searchByTitle?.length >0) {
-      if(context.filteredItems?.length >0){
+      if(context.filteredItems?.lenght >0){
         return(
           context.filteredItems?.map(item => (
             <Card 
