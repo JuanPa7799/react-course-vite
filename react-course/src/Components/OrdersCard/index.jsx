@@ -1,22 +1,22 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 
-
 const OrdersCard = props => {
-  const { totalPrice, totalProducts} = props
+  const { totalPrice, totalProducts } = props
+
   return (
-    <div className="flex justify-between items-center border border-black p-4 w-80 rounded-lg mb-4">
-      <div className=' justify-between w-full'>
+    <div className="flex justify-between items-center mb-3 border border-black rounded-lg p-4 w-80">
+      <div className='flex justify-between w-full'>
         <p className='flex flex-col'>
-          <span className=' font-light'>01.02.23</span>  
+          <span className='font-light'>01.02.23</span>
+          <span className='font-light'>{totalProducts} articles</span>
         </p>
         <p className='flex items-center gap-2'>
-          <span className=' font-light'>{totalProducts} articles</span>  
-          <ChevronRightIcon 
-          className=' h-6 w-6 text-black cursor-pointer'/>
+          <span className='font-medium text-2xl'>${totalPrice}</span>
+          <ChevronRightIcon className='h-6 w-6 text-black cursor-pointer' />
         </p>
-        <span className=' font-medium text-2xl'>${totalPrice }</span>  
-      </div> 
+      </div>
     </div>
   )
 }
-export default OrdersCard;
+
+export default OrdersCard
